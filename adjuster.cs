@@ -95,9 +95,6 @@ namespace BetterCalibrationUI
             }
             Debug.Log("[Stand Here When Calibrate Trackers] height adjuster shifted");
         }
-        private String baseFolder = "BladeAndSorcery_Data/StreamingAssets/Mods/BetterCalibrationUI/";
-        private String p1 = "ui_leftfoot.png";
-        private String p2 = "ui_rightfoot.png";
         public bool showLine = true;
         public bool centerButton = true;
         public float buttonOffsetX = -1.3f;
