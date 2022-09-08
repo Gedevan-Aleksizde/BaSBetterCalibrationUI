@@ -19,10 +19,10 @@ namespace BetterCalibrationUI
         {
             if(levelData.id == "CharacterSelection")
             {
-                if (this.showLine || this.centerButton || setMirror) Debug.Log("[Better Calibration UI] Start");
+                // if (this.showLine || this.centerButton || setMirror) Debug.Log("[Better Calibration UI] Start");
                 if (this.centerButton) moveButtonToCenter();
                 if (this.showLine) replaceText();
-                Debug.Log("[Better Calibration UI] Finished");
+                // Debug.Log("[Better Calibration UI] Finished");
             }
         }
         private void replaceText()
@@ -72,8 +72,7 @@ namespace BetterCalibrationUI
                     break;
                 }
             }
-            // 14453?
-            Debug.Log("[Stand Here When Calibrate Trackers] draw the line");
+            // Debug.Log("[Stand Here When Calibrate Trackers] draw the line");
         }
         private void moveButtonToCenter()
         {
@@ -93,7 +92,7 @@ namespace BetterCalibrationUI
                     break;
                 }
             }
-            Debug.Log("[Stand Here When Calibrate Trackers] height adjuster shifted");
+            // Debug.Log("[Stand Here When Calibrate Trackers] height adjuster shifted");
         }
         public bool showLine = true;
         public bool centerButton = true;
