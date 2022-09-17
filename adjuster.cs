@@ -21,7 +21,7 @@ namespace BetterCalibrationUI
             {
                 // if (this.showLine || this.centerButton || setMirror) Debug.Log("[Better Calibration UI] Start");
                 if (this.centerButton) moveButtonToCenter();
-                if (this.showLine) replaceText();
+                if (this.showFootprints) replaceText();
                 // Debug.Log("[Better Calibration UI] Finished");
             }
         }
@@ -94,7 +94,7 @@ namespace BetterCalibrationUI
             }
             // Debug.Log("[Stand Here When Calibrate Trackers] height adjuster shifted");
         }
-        public bool showLine = true;
+        public bool showFootprints = true;
         public bool centerButton = true;
         public float buttonOffsetX = -1.3f;
         public float buttonOffsetZ = -1.9f;
