@@ -15,6 +15,11 @@ namespace BetterCalibrationUI
             EventManager.onLevelLoad += new EventManager.LevelLoadEvent(this.BCUI_onLevelLoad);
             return base.OnLoadCoroutine();
         }
+        public override void OnUnload()
+        {
+            EventManager.onLevelLoad -= new EventManager.LevelLoadEvent(this.BCUI_onLevelLoad);
+            base.OnUnload();
+        }
         public void BCUI_onLevelLoad(LevelData levelData, EventTime eventTime)
         {
             if(levelData.id == "CharacterSelection")
