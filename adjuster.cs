@@ -26,7 +26,7 @@ namespace BetterCalibrationUI
             if(levelData.id == "CharacterSelection" && eventTime == EventTime.OnEnd)
             {
                 // if (this.showLine || this.centerButton || setMirror) Debug.Log("[Better Calibration UI] Start");
-                if (this.centerButton) moveButtonToCenter();
+                if (this.centerButton) MoveButtonToCenter();
                 if (this.showFootprints) replaceText();
                 // Debug.Log("[Better Calibration UI] Finished");
             }
@@ -39,7 +39,6 @@ namespace BetterCalibrationUI
                 {
                     t.transform.gameObject.transform.Translate(0, 0, -0.1f);
                     t.text = "Ignore Foot Polygons. Just align trackers with footprints.";
-                    DebugForSuckUnity(t.gameObject.transform.parent.gameObject);
                     Catalog.InstantiateAsync(
                         "calibrationUI.betterFootCanvas",
                         new Vector3(0, 0, 0),
@@ -47,21 +46,12 @@ namespace BetterCalibrationUI
                         t.transform.parent,
                         delegate(GameObject go) {
                             go.transform.localPosition = new Vector3(0, 0.035f, -0.16f);
-                            DebugForSuckUnity(go);
                         }, "loadFootPrint");
                     break;
                 }
             }
         }
-        private void DebugForSuckUnity(GameObject go)
-        {
-            Transform tr = go.transform;
-            Debug.Log($"[Debug] {go.name} parent: {tr.parent}");
-            Debug.Log($"[Debug] {go.name} local position: {tr.localPosition.ToString("F3")}");
-            Debug.Log($"[Debug] {go.name} local rotation: {tr.localRotation.eulerAngles.ToString("F3")}");
-            Debug.Log($"[Debug] {go.name} local scale: {tr.localScale.ToString("F3")}");
-        }
-        private void moveButtonToCenter()
+        private void MoveButtonToCenter()
         {
             // TODO: GameObject.Find?
             GameObject[] allGameObjects = SceneManager.GetActiveScene().GetRootGameObjects();
