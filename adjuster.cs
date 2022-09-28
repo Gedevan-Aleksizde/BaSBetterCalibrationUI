@@ -4,6 +4,7 @@ using ThunderRoad;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace BetterCalibrationUI
 {
@@ -22,7 +23,7 @@ namespace BetterCalibrationUI
         }
         public void BCUI_onLevelLoad(LevelData levelData, EventTime eventTime)
         {
-            if(levelData.id == "CharacterSelection")
+            if(levelData.id == "CharacterSelection" && eventTime == EventTime.OnEnd)
             {
                 // if (this.showLine || this.centerButton || setMirror) Debug.Log("[Better Calibration UI] Start");
                 if (this.centerButton) moveButtonToCenter();
@@ -32,52 +33,33 @@ namespace BetterCalibrationUI
         }
         private void replaceText()
         {
-            const float feetDecenteringOffset = 0.28f;
-            const float feetForwardOffset = 0.19f;
-            const float footAngle = 17f;
-            const float scaleImage = 0.95f;
             foreach (Text t in Resources.FindObjectsOfTypeAll(typeof(Text)) as Text[])
             {
                 if(t.gameObject.name == "FootCanvas")
                 {
                     t.transform.gameObject.transform.Translate(0, 0, -0.1f);
                     t.text = "Ignore Foot Polygons. Just align trackers with footprints.";
-                    GameObject betterFootCanvas = GameObject.Instantiate(t.gameObject, new Vector3(0, 1.0f, -0.16f), Quaternion.Euler(90f, 0, 0)) as GameObject;
-                    betterFootCanvas.name = "betterFootCanvas";
-                    betterFootCanvas.transform.SetParent(t.transform.parent);
-                    Text t2text = betterFootCanvas.GetComponent<Text>();
-                    t2text.text = "__________________________________";
-                    t2text.horizontalOverflow = HorizontalWrapMode.Overflow;
-                    t2text.verticalOverflow = VerticalWrapMode.Overflow;
-                    GameObject uiFeet = new GameObject("UIFeet");
-                    uiFeet.AddComponent<RectTransform>();
-                    uiFeet.AddComponent<Canvas>();
-                    uiFeet.AddComponent<CanvasScaler>();
-                    uiFeet.transform.SetParent(betterFootCanvas.transform, false); // worldPositionStays って誰が得するの
-                    uiFeet.transform.Translate(new Vector3(0, feetForwardOffset, 0));
-                    uiFeet.transform.eulerAngles = new Vector3(90f, 0, 0);
-                    uiFeet.transform.localScale = new Vector3(scaleImage, scaleImage, scaleImage);
-                    GameObject uiLeftFoot = new GameObject("UILeftFoot");
-                    GameObject uiRightFoot = new GameObject("UIRightFoot");
-                    uiLeftFoot.transform.SetParent(uiFeet.transform, false);
-                    uiRightFoot.transform.SetParent(uiFeet.transform, false);
-                    uiLeftFoot.transform.Rotate(new Vector3(0, 0, footAngle));
-                    uiRightFoot.transform.Rotate(new Vector3(0, 0, -footAngle));
-                    uiLeftFoot.AddComponent<Image>();
-                    uiRightFoot.AddComponent<Image>();
-                    uiLeftFoot.transform.Translate(new Vector3(-feetDecenteringOffset, 0, 0));
-                    uiRightFoot.transform.Translate(new Vector3(feetDecenteringOffset, 0, 0));
-                    Catalog.LoadAssetAsync<Texture2D>("calibrationUI.ui_leftfoot", tex2D => 
-                    {
-                        uiLeftFoot.GetComponent<Image>().sprite = Sprite.Create(tex2D, new Rect(0f, 0f, tex2D.width, tex2D.height), new Vector2(-.5f, .5f));
-                    }, uiLeftFoot.name);
-                    Catalog.LoadAssetAsync<Texture2D>("calibrationUI.ui_rightfoot", tex2D => {
-                        uiRightFoot.GetComponent<Image>().sprite = Sprite.Create(tex2D, new Rect(0f, 0f, tex2D.width, tex2D.height), new Vector2(.5f, .5f));
-                    }, uiRightFoot.name);
+                    DebugForSuckUnity(t.gameObject.transform.parent.gameObject);
+                    Catalog.InstantiateAsync(
+                        "calibrationUI.betterFootCanvas",
+                        new Vector3(0, 0, 0),
+                        Quaternion.Euler(90f, 0, 0),
+                        t.transform.parent,
+                        delegate(GameObject go) {
+                            go.transform.localPosition = new Vector3(0, 0.035f, -0.16f);
+                            DebugForSuckUnity(go);
+                        }, "loadFootPrint");
                     break;
                 }
             }
-            // Debug.Log("[Stand Here When Calibrate Trackers] draw the line");
+        }
+        private void DebugForSuckUnity(GameObject go)
+        {
+            Transform tr = go.transform;
+            Debug.Log($"[Debug] {go.name} parent: {tr.parent}");
+            Debug.Log($"[Debug] {go.name} local position: {tr.localPosition.ToString("F3")}");
+            Debug.Log($"[Debug] {go.name} local rotation: {tr.localRotation.eulerAngles.ToString("F3")}");
+            Debug.Log($"[Debug] {go.name} local scale: {tr.localScale.ToString("F3")}");
         }
         private void moveButtonToCenter()
         {
