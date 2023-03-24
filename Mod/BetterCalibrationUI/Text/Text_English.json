@@ -1,0 +1,23 @@
+{
+    "$type": "ThunderRoad.TextData, ThunderRoad",
+    "id": "English",
+    "sensitiveContent": "None",
+    "sensitiveFilterBehaviour": "Discard",
+    "version": 1,
+    "textGroups": [
+      {
+        "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
+          "id": "Default",
+          "texts": [
+            {
+              "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+              "id": "FeetTrackersSetup",
+              "text": "Ignore Foot Polygons. Just align trackers with footprints.",
+              "spriteAddress": null,
+              "videoAddress": null
+            }
+  
+        ]
+      }
+    ]
+  }

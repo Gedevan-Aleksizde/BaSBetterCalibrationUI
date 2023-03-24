@@ -1,0 +1,69 @@
+{
+  "$type": "ThunderRoad.TextData, ThunderRoad",
+  "id": "Japanese",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 1,
+  "textGroups": [
+    {
+    "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
+      "id": "Tooltips",
+      "texts": [
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "BCUI_show_footprint",
+          "text": "足跡を表示"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "BCUI_show_footprint_desc",
+          "text": "カリブレーション時に地面に足跡を表示するかどうかです。"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "BCUI_center_button",
+          "text": "ボタンを正面に (秒)"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "BCUI_center_button_desc",
+          "text": "カリブレーションボタンを正面に持ってきます。"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "BCUI_x_axis_offset_x",
+          "text": "ボタンの横方向オフセット"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "BCUI_x_axis_offset_desc",
+          "text": "ボタンの横方向の位置調整です。"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "BCUI_y_axis_offset_y",
+          "text": "ボタンの縦方向オフセット"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "BCUI_y_axis_offset_y_desc",
+          "text": "ボタンの縦方向の位置調整です。"
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
+        "id": "Default",
+        "texts": [
+          {
+            "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+            "id": "FeetTrackersSetup",
+            "text": "まず足跡とトラッカーの位置を合わせてください\n足ポリゴンとトラッカーの位置が合ったらうまくいっっています",
+            "spriteAddress": null,
+            "videoAddress": null
+          }
+
+      ]
+    }
+  ]
+}
