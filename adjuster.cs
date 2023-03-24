@@ -5,46 +5,60 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using TMPro;
 
 namespace BetterCalibrationUI
 {
     // be careful it's dirty implementation
-    public class Changer: LevelModule
+    public class BCUIChanger: ThunderScript
     {
-        public override IEnumerator OnLoadCoroutine()
+        public override void ScriptLoaded(ModManager.ModData modData)
         {
-            EventManager.onLevelLoad += new EventManager.LevelLoadEvent(this.BCUI_onLevelLoad);
-            return base.OnLoadCoroutine();
+            base.ScriptLoaded(modData);
         }
-        public override void OnUnload()
+        public override void ScriptEnable()
         {
-            EventManager.onLevelLoad -= new EventManager.LevelLoadEvent(this.BCUI_onLevelLoad);
-            base.OnUnload();
+            ModManager.OnModLoad += ModManager_OnModLoad;
+            EventManager.onLevelLoad += new EventManager.LevelLoadEvent(this.BCUI_onLevelLoad);
+            base.ScriptEnable();
+        }
+        private void ModManager_OnModLoad(EventTime eventTime, ModManager.ModData modData = null)
+        {
+            if (modData?.folderName == this.ModData.folderName)
+            {
+                this.BCUI_onLevelLoad(Level.current.data, EventTime.OnEnd);
+            }
+        }
+
+        public override void ScriptDisable()
+        {
+            ModManager.OnModLoad -= ModManager_OnModLoad;
+            base.ScriptDisable();
         }
         public void BCUI_onLevelLoad(LevelData levelData, EventTime eventTime)
         {
-            if(levelData.id == "CharacterSelection" && eventTime == EventTime.OnEnd)
+            if (levelData.id == "MainMenu" && eventTime == EventTime.OnEnd)
             {
                 // if (this.showLine || this.centerButton || setMirror) Debug.Log("[Better Calibration UI] Start");
-                if (this.centerButton) MoveButtonToCenter();
-                if (this.showFootprints) replaceText();
+                if (centerButton) this.MoveButtonToCenter();
+                if (showFootprints) this.ChangeSignOnFloor();
                 // Debug.Log("[Better Calibration UI] Finished");
             }
         }
-        private void replaceText()
+        private void ChangeSignOnFloor()
         {
-            foreach (Text t in Resources.FindObjectsOfTypeAll(typeof(Text)) as Text[])
+            foreach (TextMeshProUGUI t in Resources.FindObjectsOfTypeAll(typeof(TextMeshProUGUI)) as TextMeshProUGUI[])
             {
-                if(t.gameObject.name == "FootCanvas")
+                if (t.gameObject.name == "FootCanvas")
                 {
                     t.transform.gameObject.transform.Translate(0, 0, -0.1f);
                     t.text = "Ignore Foot Polygons. Just align trackers with footprints.";
                     Catalog.InstantiateAsync(
-                        "calibrationUI.betterFootCanvas",
+                        "BetterCalibrationUI.betterFootCanvas",
                         new Vector3(0, 0, 0),
                         Quaternion.Euler(90f, 0, 0),
                         t.transform.parent,
-                        delegate(GameObject go) {
+                        delegate (GameObject go) {
                             go.transform.localPosition = new Vector3(0, 0.035f, -0.16f);
                         }, "loadFootPrint");
                     break;
@@ -59,22 +73,49 @@ namespace BetterCalibrationUI
             {
                 if (go.name == "UI")
                 {
-                    Transform ch = go.transform.Find("04 Character Height");
-                    Transform uiCharHeightRight = go.transform.Find("04 Character Height/UIColliderRight");
-                    Transform colliderRight = go.transform.Find("04 Character Height/ui_CharHeight_Right");
-                    uiCharHeightRight.Translate(this.buttonOffsetX, 0, this.buttonOffsetZ);
+                    Transform ch = go.transform.Find("07 Character selection");
+                    Transform uiCharHeightRight = go.transform.Find("07 Character Height/UIColliderRight");
+                    Transform colliderRight = go.transform.Find("07 Character Height/ui_CharHeight_Right");
+                    Debug.Log($"[DEBUG] BCUI x={buttonOffsetX}, z={buttonOffsetZ}");
+                    uiCharHeightRight.Translate(buttonOffsetBaseX + buttonOffsetX, 0, buttonOffsetBaseZ + buttonOffsetZ);
                     uiCharHeightRight.Rotate(new Vector3(0, -45, 0));
-                    colliderRight.Translate(this.buttonOffsetX, 0, this.buttonOffsetZ);
+                    colliderRight.Translate(buttonOffsetBaseX + buttonOffsetX, 0, buttonOffsetBaseZ + buttonOffsetZ);
                     colliderRight.Rotate(new Vector3(0, -45, 0));
                     break;
                 }
             }
             // Debug.Log("[Stand Here When Calibrate Trackers] height adjuster shifted");
         }
-        public bool showFootprints = true;
-        public bool centerButton = true;
-        public float buttonOffsetX = -1.3f;
-        public float buttonOffsetZ = -1.9f;
-        public bool setMirror = true; // TODO: for hip or other extra trackers in the future
+        protected const float buttonOffsetBaseX = -1.3f;
+        protected const float buttonOffsetBaseZ = -1.9f;
+        [ModOption(
+            category ="General",
+            name = "Show Footprints",
+            nameLocalizationId = "Tooltips.BCUI_show_footprint",
+            tooltip = "whether or not to show the footprints image when calibrating",
+            tooltipLocalizationId = "Tooltips.BCUI_show_footprint_desc")]
+        public static bool showFootprints = true;
+        [ModOption(
+            category = "General",
+            name = "Center the Button",
+            nameLocalizationId = "Tooltips.BCUI_center_button",
+            tooltip = "whether or not to centerize the calibration button",
+            tooltipLocalizationId = "Tooltips.BCUI_center_button_desc")]
+        public static bool centerButton = true;
+        [ModOption(
+            category = "Calibartion Button",
+            name = "Button Offset (X-Axis)",
+            nameLocalizationId = "Tooltips.BCUI_x_axis_offset_x",
+            tooltip = "X-axis offset of the calibration button.",
+            tooltipLocalizationId = "Tooltips.BCUI_x_axis_offset_desc")]
+        public static float buttonOffsetX = 0f;
+        [ModOption(
+            category = "Calibartion Button",
+            name = "Button Offset (Y-Axis)",
+            nameLocalizationId = "Tooltips.BCUI_y_axis_offset_y",
+            tooltip = "Y-axis offset of the calibration button.",
+            tooltipLocalizationId = "Tooltips.BCUI_y_axis_offset_desc")]
+        public static float buttonOffsetZ = 0f;
+        // public static bool setMirror = true; // TODO: for hip or other extra trackers in the future
     }
 }
