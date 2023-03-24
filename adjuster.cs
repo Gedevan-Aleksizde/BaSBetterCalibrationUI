@@ -76,7 +76,6 @@ namespace BetterCalibrationUI
                     Transform ch = go.transform.Find("07 Character selection");
                     Transform uiCharHeightRight = go.transform.Find("07 Character Height/UIColliderRight");
                     Transform colliderRight = go.transform.Find("07 Character Height/ui_CharHeight_Right");
-                    Debug.Log($"[DEBUG] BCUI x={buttonOffsetX}, z={buttonOffsetZ}");
                     uiCharHeightRight.Translate(buttonOffsetBaseX + buttonOffsetX, 0, buttonOffsetBaseZ + buttonOffsetZ);
                     uiCharHeightRight.Rotate(new Vector3(0, -45, 0));
                     colliderRight.Translate(buttonOffsetBaseX + buttonOffsetX, 0, buttonOffsetBaseZ + buttonOffsetZ);
@@ -89,32 +88,33 @@ namespace BetterCalibrationUI
         protected const float buttonOffsetBaseX = -1.3f;
         protected const float buttonOffsetBaseZ = -1.9f;
         [ModOption(
-            category ="General",
+            category ="0 General",
             name = "Show Footprints",
-            nameLocalizationId = "Tooltips.BCUI_show_footprint",
+            nameLocalizationId = "ModTooltips.BCUI_show_footprint",
             tooltip = "whether or not to show the footprints image when calibrating",
-            tooltipLocalizationId = "Tooltips.BCUI_show_footprint_desc")]
+            tooltipLocalizationId = "ModTooltips.BCUI_show_footprint_desc")]
         public static bool showFootprints = true;
         [ModOption(
-            category = "General",
+            category = "0 General",
             name = "Center the Button",
-            nameLocalizationId = "Tooltips.BCUI_center_button",
+            nameLocalizationId = "ModTooltips.BCUI_center_button",
             tooltip = "whether or not to centerize the calibration button",
-            tooltipLocalizationId = "Tooltips.BCUI_center_button_desc")]
+            tooltipLocalizationId = "ModTooltips.BCUI_center_button_desc")]
         public static bool centerButton = true;
         [ModOption(
-            category = "Calibartion Button",
+            category = "1 Calibartion Button",
+            order =0,
             name = "Button Offset (X-Axis)",
-            nameLocalizationId = "Tooltips.BCUI_x_axis_offset_x",
+            nameLocalizationId = "ModTooltips.BCUI_offset_x",
             tooltip = "X-axis offset of the calibration button.",
-            tooltipLocalizationId = "Tooltips.BCUI_x_axis_offset_desc")]
+            tooltipLocalizationId = "ModTooltips.BCUI_offset_x_desc")]
         public static float buttonOffsetX = 0f;
         [ModOption(
-            category = "Calibartion Button",
+            category = "1 Calibartion Button", order =1,
             name = "Button Offset (Y-Axis)",
-            nameLocalizationId = "Tooltips.BCUI_y_axis_offset_y",
+            nameLocalizationId = "ModTooltips.BCUI_offset_y",
             tooltip = "Y-axis offset of the calibration button.",
-            tooltipLocalizationId = "Tooltips.BCUI_y_axis_offset_desc")]
+            tooltipLocalizationId = "ModTooltips.BCUI_offset_y_desc")]
         public static float buttonOffsetZ = 0f;
         // public static bool setMirror = true; // TODO: for hip or other extra trackers in the future
     }

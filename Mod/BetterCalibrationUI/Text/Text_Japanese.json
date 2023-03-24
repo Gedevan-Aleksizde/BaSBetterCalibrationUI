@@ -7,7 +7,7 @@
   "textGroups": [
     {
     "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
-      "id": "Tooltips",
+      "id": "ModTooltips",
       "texts": [
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
@@ -22,7 +22,7 @@
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "BCUI_center_button",
-          "text": "ボタンを正面に (秒)"
+          "text": "ボタンを正面に"
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
@@ -31,22 +31,22 @@
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "BCUI_x_axis_offset_x",
+          "id": "BCUI_offset_x",
           "text": "ボタンの横方向オフセット"
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "BCUI_x_axis_offset_desc",
+          "id": "BCUI_offset_x_desc",
           "text": "ボタンの横方向の位置調整です。"
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "BCUI_y_axis_offset_y",
+          "id": "BCUI_offset_y",
           "text": "ボタンの縦方向オフセット"
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "BCUI_y_axis_offset_y_desc",
+          "id": "BCUI_offset_y_desc",
           "text": "ボタンの縦方向の位置調整です。"
         }
       ]
