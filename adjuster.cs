@@ -24,9 +24,12 @@ namespace BetterCalibrationUI
         }
         private void ModManager_OnModLoad(EventTime eventTime, ModManager.ModData modData = null)
         {
-            if (modData?.folderName == this.ModData.folderName)
+            if(eventTime == EventTime.OnEnd)
             {
-                this.BCUI_onLevelLoad(Level.current.data, EventTime.OnEnd);
+                if (modData == null)
+                {
+                    this.BCUI_onLevelLoad(Level.current.data, EventTime.OnEnd);
+                }
             }
         }
 
@@ -102,7 +105,7 @@ namespace BetterCalibrationUI
             tooltipLocalizationId = "ModTooltips.BCUI_center_button_desc")]
         public static bool centerButton = true;
         [ModOption(
-            category = "1 Calibartion Button",
+            category = "1 Calibration Button",
             order =0,
             name = "Button Offset (X-Axis)",
             nameLocalizationId = "ModTooltips.BCUI_offset_x",
@@ -110,10 +113,10 @@ namespace BetterCalibrationUI
             tooltipLocalizationId = "ModTooltips.BCUI_offset_x_desc")]
         public static float buttonOffsetX = 0f;
         [ModOption(
-            category = "1 Calibartion Button", order =1,
+            category = "1 Calibration Button", order =1,
             name = "Button Offset (Y-Axis)",
             nameLocalizationId = "ModTooltips.BCUI_offset_y",
-            tooltip = "Y-axis offset of the calibration button.",
+            tooltip = "Y-axis offset of the calibration button",
             tooltipLocalizationId = "ModTooltips.BCUI_offset_y_desc")]
         public static float buttonOffsetZ = 0f;
         // public static bool setMirror = true; // TODO: for hip or other extra trackers in the future
