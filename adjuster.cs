@@ -22,21 +22,21 @@ namespace BetterCalibrationUI
             EventManager.onLevelLoad += new EventManager.LevelLoadEvent(this.BCUI_onLevelLoad);
             base.ScriptEnable();
         }
+        public override void ScriptDisable()
+        {
+            ModManager.OnModLoad -= ModManager_OnModLoad;
+            EventManager.onLevelLoad -= new EventManager.LevelLoadEvent(this.BCUI_onLevelLoad);
+            base.ScriptDisable();
+        }
         private void ModManager_OnModLoad(EventTime eventTime, ModManager.ModData modData = null)
         {
-            if(eventTime == EventTime.OnEnd)
+            if (eventTime == EventTime.OnEnd)
             {
                 if (modData == null)
                 {
                     this.BCUI_onLevelLoad(Level.current.data, EventTime.OnEnd);
                 }
             }
-        }
-
-        public override void ScriptDisable()
-        {
-            ModManager.OnModLoad -= ModManager_OnModLoad;
-            base.ScriptDisable();
         }
         public void BCUI_onLevelLoad(LevelData levelData, EventTime eventTime)
         {
@@ -95,14 +95,16 @@ namespace BetterCalibrationUI
             name = "Show Footprints",
             nameLocalizationId = "ModTooltips.BCUI_show_footprint",
             tooltip = "whether or not to show the footprints image when calibrating",
-            tooltipLocalizationId = "ModTooltips.BCUI_show_footprint_desc")]
+            tooltipLocalizationId = "ModTooltips.BCUI_show_footprint_desc",
+            defaultValueIndex = 1)]
         public static bool showFootprints = true;
         [ModOption(
             category = "0 General",
             name = "Center the Button",
             nameLocalizationId = "ModTooltips.BCUI_center_button",
             tooltip = "whether or not to centerize the calibration button",
-            tooltipLocalizationId = "ModTooltips.BCUI_center_button_desc")]
+            tooltipLocalizationId = "ModTooltips.BCUI_center_button_desc",
+            defaultValueIndex = 1)]
         public static bool centerButton = true;
         [ModOption(
             category = "1 Calibration Button",
