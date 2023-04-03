@@ -32,7 +32,7 @@ namespace BetterCalibrationUI
         {
             if (eventTime == EventTime.OnEnd)
             {
-                if (/*modData == null*/ eventType == ModManager.ModLoadEventType.Catalog)
+                if (modData == null)
                 {
                     this.BCUI_onLevelLoad(Level.current.data, EventTime.OnEnd);
                 }
