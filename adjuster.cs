@@ -28,11 +28,11 @@ namespace BetterCalibrationUI
             EventManager.onLevelLoad -= new EventManager.LevelLoadEvent(this.BCUI_onLevelLoad);
             base.ScriptDisable();
         }
-        private void ModManager_OnModLoad(EventTime eventTime, ModManager.ModData modData = null)
+        private void ModManager_OnModLoad(EventTime eventTime, ModManager.ModLoadEventType eventType, ModManager.ModData modData = null)
         {
             if (eventTime == EventTime.OnEnd)
             {
-                if (modData == null)
+                if (/*modData == null*/ eventType == ModManager.ModLoadEventType.Catalog)
                 {
                     this.BCUI_onLevelLoad(Level.current.data, EventTime.OnEnd);
                 }
@@ -76,7 +76,7 @@ namespace BetterCalibrationUI
             {
                 if (go.name == "UI")
                 {
-                    Transform ch = go.transform.Find("07 Character selection");
+                    // Transform ch = go.transform.Find("07 Character selection");
                     Transform uiCharHeightRight = go.transform.Find("07 Character Height/UIColliderRight");
                     Transform colliderRight = go.transform.Find("07 Character Height/ui_CharHeight_Right");
                     uiCharHeightRight.Translate(buttonOffsetBaseX + buttonOffsetX, 0, buttonOffsetBaseZ + buttonOffsetZ);

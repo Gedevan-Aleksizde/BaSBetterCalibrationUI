@@ -1,7 +1,8 @@
 {
-    "Name": "Stand Here When Calibrating Trackers (U12)",
-    "Description": "Anyone really didn't feel uncomfortable about this UI?",
-    "Author": "S-Katagiri",
-    "ModVersion": "1.2.4",
-    "GameVersion": "0.12.0.0"
+  "Name": "Stand Here When Calibrating Trackers (U12.1)",
+  "Description": "I want an official fix asap",
+  "Author": "S-Katagiri",
+  "ModVersion": "1.2.6",
+  "GameVersion": "0.12.0.0",
+  "Thumbnail": ""
 }
