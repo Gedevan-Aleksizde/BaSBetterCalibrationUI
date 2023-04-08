@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections;
-using ThunderRoad;
-using UnityEngine.UI;
+﻿using ThunderRoad;
 using UnityEngine.SceneManagement;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using TMPro;
 
 namespace BetterCalibrationUI
@@ -32,7 +28,7 @@ namespace BetterCalibrationUI
         {
             if (eventTime == EventTime.OnEnd)
             {
-                if (modData == null)
+                if (modData?.thunderScripts.Contains(this) ?? false)
                 {
                     this.BCUI_onLevelLoad(Level.current.data, EventTime.OnEnd);
                 }
@@ -42,8 +38,9 @@ namespace BetterCalibrationUI
         {
             if (levelData.id == "MainMenu" && eventTime == EventTime.OnEnd)
             {
+                Debug.Log("onLevelLoad called");
                 // if (this.showLine || this.centerButton || setMirror) Debug.Log("[Better Calibration UI] Start");
-                if (centerButton) this.MoveButtonToCenter();
+                if (centerButton)this.MoveButtonToCenter();
                 if (showFootprints) this.ChangeSignOnFloor();
                 // Debug.Log("[Better Calibration UI] Finished");
             }
