@@ -28,7 +28,7 @@ namespace BetterCalibrationUI
         {
             if (eventTime == EventTime.OnEnd)
             {
-                if (modData?.thunderScripts.Contains(this) ?? false)
+                if (Level.current?.data != null && (modData?.thunderScripts.Contains(this) ?? false))
                 {
                     this.BCUI_onLevelLoad(Level.current.data, EventTime.OnEnd);
                 }
