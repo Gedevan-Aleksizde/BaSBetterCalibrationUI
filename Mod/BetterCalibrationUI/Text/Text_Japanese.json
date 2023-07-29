@@ -7,8 +7,18 @@
   "textGroups": [
     {
     "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
-      "id": "ModTooltips",
+      "id": "ModOpts",
       "texts": [
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "category_general",
+          "text": "全般"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "category_buttons",
+          "text": "カリブレーションボタン"
+        },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "BCUI_show_footprint",
@@ -58,11 +68,10 @@
           {
             "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
             "id": "FeetTrackersSetup",
-            "text": "まず足跡とトラッカーの位置を合わせてください\n足ポリゴンとトラッカーの位置が合ったらうまくいっっています",
+            "text": "まず足跡とトラッカーの位置を合わせてください\n足ポリゴンとトラッカーの位置が合ったらうまくいっています",
             "spriteAddress": null,
             "videoAddress": null
           }
-
       ]
     }
   ]

@@ -7,7 +7,7 @@
     "textGroups": [
       {
         "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
-          "id": "ModTooltips",
+          "id": "ModOpts",
           "texts": [
             {
               "$type": "ThunderRoad.TextData+TextID, ThunderRoad",

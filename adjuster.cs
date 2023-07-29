@@ -87,36 +87,37 @@ namespace BetterCalibrationUI
         }
         protected const float buttonOffsetBaseX = -1.3f;
         protected const float buttonOffsetBaseZ = -1.9f;
+        [ModOptionCategory("General", 0, "ModOpts.category_general")]
         [ModOption(
-            category ="0 General",
             name = "Show Footprints",
-            nameLocalizationId = "ModTooltips.BCUI_show_footprint",
+            nameLocalizationId = "ModOpts.BCUI_show_footprint",
             tooltip = "whether or not to show the footprints image when calibrating",
-            tooltipLocalizationId = "ModTooltips.BCUI_show_footprint_desc",
+            tooltipLocalizationId = "ModOpts.BCUI_show_footprint_desc",
             defaultValueIndex = 1)]
         public static bool showFootprints = true;
+        [ModOptionCategory("General", 0, "ModOpts.category_general")]
         [ModOption(
-            category = "0 General",
             name = "Center the Button",
-            nameLocalizationId = "ModTooltips.BCUI_center_button",
+            nameLocalizationId = "ModOpts.BCUI_center_button",
             tooltip = "whether or not to centerize the calibration button",
-            tooltipLocalizationId = "ModTooltips.BCUI_center_button_desc",
+            tooltipLocalizationId = "ModOpts.BCUI_center_button_desc",
             defaultValueIndex = 1)]
         public static bool centerButton = true;
+        [ModOptionCategory("Calibration Buttions", 1, "ModOpts.category_buttons")]
         [ModOption(
-            category = "1 Calibration Button",
             order =0,
             name = "Button Offset (X-Axis)",
-            nameLocalizationId = "ModTooltips.BCUI_offset_x",
+            nameLocalizationId = "ModOpts.BCUI_offset_x",
             tooltip = "X-axis offset of the calibration button.",
-            tooltipLocalizationId = "ModTooltips.BCUI_offset_x_desc")]
+            tooltipLocalizationId = "ModOpts.BCUI_offset_x_desc")]
         public static float buttonOffsetX = 0f;
+        [ModOptionCategory("Calibration Buttions", 1, "ModOpts.category_buttons")]
         [ModOption(
             category = "1 Calibration Button", order =1,
             name = "Button Offset (Y-Axis)",
-            nameLocalizationId = "ModTooltips.BCUI_offset_y",
+            nameLocalizationId = "ModOpts.BCUI_offset_y",
             tooltip = "Y-axis offset of the calibration button",
-            tooltipLocalizationId = "ModTooltips.BCUI_offset_y_desc")]
+            tooltipLocalizationId = "ModOpts.BCUI_offset_y_desc")]
         public static float buttonOffsetZ = 0f;
         // public static bool setMirror = true; // TODO: for hip or other extra trackers in the future
     }
