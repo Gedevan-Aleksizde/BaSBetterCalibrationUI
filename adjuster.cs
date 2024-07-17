@@ -30,15 +30,15 @@ namespace BetterCalibrationUI
             {
                 if (Level.current?.data != null && (modData?.thunderScripts.Contains(this) ?? false))
                 {
-                    this.BCUI_onLevelLoad(Level.current.data, EventTime.OnEnd);
+                    this.BCUI_onLevelLoad(Level.current.data, Level.current.mode, EventTime.OnEnd);
                 }
             }
         }
-        public void BCUI_onLevelLoad(LevelData levelData, EventTime eventTime)
+        public void BCUI_onLevelLoad(LevelData levelData, LevelData.Mode mode, EventTime eventTime)
         {
             if (levelData.id == "MainMenu" && eventTime == EventTime.OnEnd)
             {
-                Debug.Log("onLevelLoad called");
+                // Debug.Log("onLevelLoad called");
                 // if (this.showLine || this.centerButton || setMirror) Debug.Log("[Better Calibration UI] Start");
                 if (centerButton) this.MoveButtonToCenter();
                 if (showFootprints) this.ChangeSignOnFloor();
@@ -49,6 +49,7 @@ namespace BetterCalibrationUI
         {
             foreach (TextMeshProUGUI t in Resources.FindObjectsOfTypeAll(typeof(TextMeshProUGUI)) as TextMeshProUGUI[])
             {
+                Debug.Log($"TMProUGUIG: {t.gameObject.name}");
                 if (t.gameObject.name == "FootCanvas")
                 {
                     t.transform.gameObject.transform.Translate(0, 0, -0.1f);
@@ -73,20 +74,21 @@ namespace BetterCalibrationUI
             {
                 if (go.name == "UI")
                 {
+                    foreach(Transform t in go.transform)
+                    {
+                        Debug.Log($"child: {t.name}");
+                    }
                     // Transform ch = go.transform.Find("07 Character selection");
-                    Transform uiCharHeightRight = go.transform.Find("07 Character Height/UIColliderRight");
-                    Transform colliderRight = go.transform.Find("07 Character Height/ui_CharHeight_Right");
-                    uiCharHeightRight.Translate(buttonOffsetBaseX + buttonOffsetX, 0, buttonOffsetBaseZ + buttonOffsetZ);
-                    uiCharHeightRight.Rotate(new Vector3(0, -45, 0));
-                    colliderRight.Translate(buttonOffsetBaseX + buttonOffsetX, 0, buttonOffsetBaseZ + buttonOffsetZ);
-                    colliderRight.Rotate(new Vector3(0, -45, 0));
+                    Transform heightButton = go.transform.Find("07 Character Height Calibration");
+                    heightButton .Translate(buttonOffsetBaseX + buttonOffsetX, 0, buttonOffsetBaseZ + buttonOffsetZ);
+                    heightButton .Rotate(new Vector3(0, -45, 0));
                     break;
                 }
             }
             // Debug.Log("[Stand Here When Calibrate Trackers] height adjuster shifted");
         }
-        protected const float buttonOffsetBaseX = -1.3f;
-        protected const float buttonOffsetBaseZ = -1.9f;
+        protected const float buttonOffsetBaseX = -0.3f;
+        protected const float buttonOffsetBaseZ = -1.0f;
         [ModOptionCategory("General", 0, "ModOpts.category_general")]
         [ModOption(name = "show_footprints", nameLocalizationId = "ModOpts.BCUI_show_footprint", defaultValueIndex = 1)]
         [ModOptionTooltip("A", "ModOpts.BCUI_show_footprint_desc")]
