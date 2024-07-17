@@ -49,7 +49,6 @@ namespace BetterCalibrationUI
         {
             foreach (TextMeshProUGUI t in Resources.FindObjectsOfTypeAll(typeof(TextMeshProUGUI)) as TextMeshProUGUI[])
             {
-                Debug.Log($"TMProUGUIG: {t.gameObject.name}");
                 if (t.gameObject.name == "FootCanvas")
                 {
                     t.transform.gameObject.transform.Translate(0, 0, -0.1f);
@@ -74,11 +73,6 @@ namespace BetterCalibrationUI
             {
                 if (go.name == "UI")
                 {
-                    foreach(Transform t in go.transform)
-                    {
-                        Debug.Log($"child: {t.name}");
-                    }
-                    // Transform ch = go.transform.Find("07 Character selection");
                     Transform heightButton = go.transform.Find("07 Character Height Calibration");
                     heightButton .Translate(buttonOffsetBaseX + buttonOffsetX, 0, buttonOffsetBaseZ + buttonOffsetZ);
                     heightButton .Rotate(new Vector3(0, -45, 0));
