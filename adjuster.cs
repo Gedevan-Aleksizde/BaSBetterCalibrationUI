@@ -73,7 +73,7 @@ namespace BetterCalibrationUI
             {
                 if (go.name == "UI")
                 {
-                    Transform heightButton = go.transform.Find("07 Character Height Calibration");
+                    Transform heightButton = go.transform.Find("07 Character Height Calibration/Right");
                     heightButton .Translate(buttonOffsetBaseX + buttonOffsetX, 0, buttonOffsetBaseZ + buttonOffsetZ);
                     heightButton .Rotate(new Vector3(0, -45, 0));
                     break;
