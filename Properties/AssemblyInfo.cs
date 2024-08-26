@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("BetterCalibrationUI")]
@@ -15,4 +14,4 @@ using System.Runtime.InteropServices;
 
 [assembly: Guid("99b2fd7a-2644-487c-9f93-48ccd2d4b1f2")]
 
-[assembly: AssemblyVersion("2.0.2.*")]
+[assembly: AssemblyVersion("2.1.0.*")]

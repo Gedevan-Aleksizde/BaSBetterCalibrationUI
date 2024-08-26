@@ -1,0 +1,68 @@
+{
+  "$type": "ThunderRoad.TextData, ThunderRoad",
+  "id": "ChineseSimplified",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 1,
+  "textGroups": [
+    {
+      "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
+      "id": "CalibrationUI",
+      "texts": [
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "BCUI_show_footprint",
+          "text": "Show Footprints"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "BCUI_show_footprint_desc",
+          "text": "whether or not to show the footprints image when calibrating"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "BCUI_center_button",
+          "text": "Center the Button"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "BCUI_center_button_desc",
+          "text": "whether or not to centerize the calibration button"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "BCUI_offset_x",
+          "text": "Calibration UI Offset (X-Axis)"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "BCUI_offset_x_desc",
+          "text": "X-axis offset of the calibration panel"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "BCUI_offset_y",
+          "text": "Calibration UI Offset (Y-Axis)"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "BCUI_offset_y_desc",
+          "text": "Y-axis offset of the calibration panel"
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
+      "id": "Default",
+      "texts": [
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "FeetTrackersSetup",
+          "text": "Ignore Foot Polygons. Just align trackers with footprints.",
+          "spriteAddress": null,
+          "videoAddress": null
+        }
+      ]
+    }
+  ]
+}

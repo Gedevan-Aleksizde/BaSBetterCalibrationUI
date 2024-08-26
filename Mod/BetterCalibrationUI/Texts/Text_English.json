@@ -7,7 +7,7 @@
     "textGroups": [
       {
         "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
-          "id": "ModOpts",
+          "id": "CalibrationUI",
           "texts": [
             {
               "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
@@ -32,22 +32,22 @@
             {
               "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
               "id": "BCUI_offset_x",
-              "text": "Button Offset (X-Axis)"
+              "text": "Calibration UI Offset (X-Axis)"
             },
             {
               "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
               "id": "BCUI_offset_x_desc",
-              "text": "X-axis offset of the calibration button"
+              "text": "X-axis offset of the calibration panel"
             },
             {
               "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
               "id": "BCUI_offset_y",
-              "text": "Button Offset (Y-Axis)"
+              "text": "Calibration UI Offset (Y-Axis)"
             },
             {
               "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
               "id": "BCUI_offset_y_desc",
-              "text": "Y-axis offset of the calibration button"
+              "text": "Y-axis offset of the calibration panel"
             }
           ]
         },

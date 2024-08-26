@@ -1,7 +1,7 @@
 ﻿using ThunderRoad;
-using UnityEngine.SceneManagement;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace BetterCalibrationUI
 {
@@ -58,7 +58,8 @@ namespace BetterCalibrationUI
                         new Vector3(0, 0, 0),
                         Quaternion.Euler(90f, 0, 0),
                         t.transform.parent,
-                        delegate (GameObject go) {
+                        delegate (GameObject go)
+                        {
                             go.transform.localPosition = new Vector3(0, 0.035f, -0.16f);
                         }, "loadFootPrint");
                     break;
@@ -74,37 +75,37 @@ namespace BetterCalibrationUI
                 if (go.name == "UI")
                 {
                     Transform heightButton = go.transform.Find("07 Character Height Calibration/Right");
-                    heightButton .Translate(buttonOffsetBaseX + buttonOffsetX, 0, buttonOffsetBaseZ + buttonOffsetZ);
-                    heightButton .Rotate(new Vector3(0, -45, 0));
+                    heightButton.Translate(buttonOffsetBaseX + buttonOffsetX, 0, buttonOffsetBaseZ + buttonOffsetZ);
+                    heightButton.Rotate(new Vector3(0, -45, 0));
                     break;
                 }
             }
             // Debug.Log("[Stand Here When Calibrate Trackers] height adjuster shifted");
         }
-        protected const float buttonOffsetBaseX = -0.3f;
-        protected const float buttonOffsetBaseZ = -1.0f;
-        [ModOptionCategory("General", 0, "ModOpts.category_general")]
-        [ModOption(name = "show_footprints", nameLocalizationId = "ModOpts.BCUI_show_footprint", defaultValueIndex = 1)]
-        [ModOptionTooltip("A", "ModOpts.BCUI_show_footprint_desc")]
+        protected const float buttonOffsetBaseX = -1.3f;
+        protected const float buttonOffsetBaseZ = -2.0f;
+        [ModOptionCategory("General", 0, "CalibrationUI.category_general")]
+        [ModOption(name = "show_footprints", nameLocalizationId = "CalibrationUI.BCUI_show_footprint", defaultValueIndex = 1, interactionType = ModOption.InteractionType.ButtonList)]
+        [ModOptionTooltip("A", "CalibrationUI.BCUI_show_footprint_desc")]
         public static bool showFootprints = true;
-        [ModOptionCategory("General", 0, "ModOpts.category_general")]
-        [ModOption(name = "center_Button", nameLocalizationId = "ModOpts.BCUI_center_button", defaultValueIndex = 1)]
-        [ModOptionTooltip("A", "ModOpts.BCUI_center_button_desc")]
+        [ModOptionCategory("General", 0, "CalibrationUI.category_general")]
+        [ModOption(name = "center_Button", nameLocalizationId = "CalibrationUI.BCUI_center_button", defaultValueIndex = 1, interactionType = ModOption.InteractionType.ButtonList)]
+        [ModOptionTooltip("A", "CalibrationUI.BCUI_center_button_desc")]
         public static bool centerButton = true;
-        [ModOptionCategory("Calibration Buttions", 1, "ModOpts.category_buttons")]
-        [ModOption(order = 0, name = "Button_Offset_x", nameLocalizationId = "ModOpts.BCUI_offset_x", valueSourceName = nameof(OffsetValues), defaultValueIndex = 10, interactionType = ModOption.InteractionType.Slider)]
-        [ModOptionTooltip("A", "ModOpts.BCUI_offset_x_desc")]
+        [ModOptionCategory("Calibration Buttions", 1, "CalibrationUI.category_buttons")]
+        [ModOption(order = 0, name = "Button_Offset_x", nameLocalizationId = "CalibrationUI.BCUI_offset_x", valueSourceName = nameof(OffsetValues), defaultValueIndex = 10, interactionType = ModOption.InteractionType.Slider)]
+        [ModOptionTooltip("A", "CalibrationUI.BCUI_offset_x_desc")]
         public static float buttonOffsetX = 0f;
-        [ModOptionCategory("Calibration Buttions", 1, "ModOpts.category_buttons")]
-        [ModOption(category = "Calibration Button", order = 1, name = "button_offset_y", nameLocalizationId = "ModOpts.BCUI_offset_y", valueSourceName = nameof(OffsetValues), defaultValueIndex = 10, interactionType = ModOption.InteractionType.Slider)]
-        [ModOptionTooltip("A", "ModOpts.BCUI_offset_y_desc")]
+        [ModOptionCategory("Calibration Buttions", 1, "CalibrationUI.category_buttons")]
+        [ModOption(category = "Calibration Button", order = 1, name = "button_offset_y", nameLocalizationId = "CalibrationUI.BCUI_offset_y", valueSourceName = nameof(OffsetValues), defaultValueIndex = 10, interactionType = ModOption.InteractionType.Slider)]
+        [ModOptionTooltip("A", "CalibrationUI.BCUI_offset_y_desc")]
         public static float buttonOffsetZ = 0f;
         private static ModOptionFloat[] OffsetValues()
         {
             ModOptionFloat[] vals = new ModOptionFloat[21];
-            for(int i = 0; i < 21; i++)
+            for (int i = 0; i < 21; i++)
             {
-                vals[i] = new ModOptionFloat(((i - 10)/10f).ToString("F1"), ((i - 10)/10f));
+                vals[i] = new ModOptionFloat(((i - 10) / 10f).ToString("F1"), ((i - 10) / 10f));
             }
             return vals;
         }

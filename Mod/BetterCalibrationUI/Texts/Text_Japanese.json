@@ -7,7 +7,7 @@
   "textGroups": [
     {
     "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
-      "id": "ModOpts",
+      "id": "CalibrationUI",
       "texts": [
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
@@ -42,22 +42,22 @@
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "BCUI_offset_x",
-          "text": "ボタンの横方向オフセット"
+          "text": "UIの横方向オフセット"
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "BCUI_offset_x_desc",
-          "text": "ボタンの横方向の位置調整です。"
+          "text": "カリブレーションパネルの横方向の位置調整です。"
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "BCUI_offset_y",
-          "text": "ボタンの縦方向オフセット"
+          "text": "UIの縦方向オフセット"
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "BCUI_offset_y_desc",
-          "text": "ボタンの縦方向の位置調整です。"
+          "text": "カリブレーションパネルの縦方向の位置調整です。"
         }
       ]
     },
