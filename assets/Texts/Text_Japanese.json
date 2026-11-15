@@ -6,7 +6,7 @@
   "version": 1,
   "textGroups": [
     {
-    "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
+      "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
       "id": "CalibrationUI",
       "texts": [
         {
@@ -63,15 +63,42 @@
     },
     {
       "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
-        "id": "Default",
-        "texts": [
-          {
-            "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-            "id": "FeetTrackersSetup",
-            "text": "まず足跡とトラッカーの位置を合わせてください\n足ポリゴンとトラッカーの位置が合ったらうまくいっています",
-            "spriteAddress": null,
-            "videoAddress": null
-          }
+      "id": "Default",
+      "texts": [
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "FeetTrackersSetup",
+          "text": "まず足跡とトラッカーの位置を合わせてください\n足ポリゴンとトラッカーの位置が合ったらうまくいっています",
+          "spriteAddress": null,
+          "videoAddress": null
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
+      "id": "BetterCalibrationUIOpt",
+      "texts": [
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ShowBones",
+          "text": "ボーン表示"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ShowBones_desc",
+          "text": "コピーの主要な骨格を重ねて表示します。デフォルトは「有効」です。"
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
+      "id": "BetterCalibrationUIOptCat",
+      "texts": [
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "General",
+          "text": "一般"
+        }
       ]
     }
   ]

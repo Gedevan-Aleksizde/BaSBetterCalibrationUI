@@ -63,6 +63,33 @@
           "videoAddress": null
         }
       ]
+    },
+    {
+      "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
+      "id": "BetterCalibrationUIOpt",
+      "texts": [
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ShowBones",
+          "text": "แสดงกระดูก"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ShowBones_desc",
+          "text": "แสดงโครงกระดูกหลักซ้อนบนอวาตาร์กระจก ค่าเริ่มต้น: เปิดใช้งาน"
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
+      "id": "BetterCalibrationUIOptCat",
+      "texts": [
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "General",
+          "text": "ทั่วไป"
+        }
+      ]
     }
   ]
 }
