@@ -39,7 +39,7 @@ namespace BetterCalibrationUI
             {
                 if (showFootprints) this.ChangeSignOnFloor();
                 this.ChangeCamera();
-                Camera.main.gameObject.AddComponent<RotateCamera>().Setup(Player.local.transform, Camera.main.transform);
+                // Camera.main.gameObject.AddComponent<RotateCamera>().Setup(Player.local.transform, Camera.main.transform);
             }
         }
         private void ChangeSignOnFloor()
@@ -83,5 +83,22 @@ namespace BetterCalibrationUI
         [ModOption("rotate_camera", "CalibrationUI.rotate_camera", defaultValueIndex = 0, interactionType = ModOption.InteractionType.ButtonList)]
         [ModOptionTooltip("A", "CalibrationUI.BCUI_rotate_camera_desc")]
         public static bool rotateCamera = false;
+        [ModOptionCategory("General", 0, "CalibrationUI.category_general")]
+        [ModOption(name = "waistHolsterWidthMult", nameLocalizationId = "CalibrationUI.BCUI_waistHolsterWidthMult", interactionType = ModOption.InteractionType.Slider, valueSourceName = nameof(ModValuesWaistWidthMult), defaultValueIndex = 10)]
+        [ModOptionTooltip("A", "CalibrationUI.BCUI_waistHolsterWidthMult")]
+        public static ModOptionFloat WaistHolsterWidthMult { get; set; }
+
+        private static ModOptionFloat[] ModValuesWaistWidthMult()
+        {
+            ModOptionFloat[] vals = new ModOptionFloat[21];
+            for (int i = 0; i < 10; i++)
+            {
+                float v = (float)i / 20;
+                vals[10 - i] = new((1.0f - v).ToString(), (1.0f - v));
+                vals[10 + i] = new((1.0f + v).ToString(), (1.0f + v));
+            }
+            vals[10] = new("1.00", 1.0f);
+            return vals;
+        }
     }
 }

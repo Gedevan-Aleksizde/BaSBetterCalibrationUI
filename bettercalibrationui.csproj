@@ -621,16 +621,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="adjuster.cs" />
-    <Compile Include="rotate.cs" />
+    <Compile Include="src\adjuster.cs" />
+    <Compile Include="src\waistCalibrator.cs" />
+    <Compile Include="src\rotateCamera.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy /Y "$(TargetPath)" "$(ProjectDir)\Mod\BetterCalibrationUI"
-powershell -Command "compress-archive -Force '$(ProjectDir)Mod\$(ProjectName)' '$(ProjectDir)Mod\$(ProjectName).zip'"
-
-copy /Y "$(ProjectDir)\Mod\$(ProjectName)\*" "$(ModFolder)$(ProjectName) - dev\$(ProjectName)\"
-</PostBuildEvent>
+    <PostBuildEvent>powershell -NoProfile -ExecutionPolicy Bypass -File "$(ProjectDir)tools\package.ps1" -TargetPath "$(TargetPath)"</PostBuildEvent>
   </PropertyGroup>
 </Project>
