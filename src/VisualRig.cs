@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using ThunderRoad;
 using UnityEngine;
 
@@ -10,6 +11,8 @@ namespace BetterCalibrationUI
         internal readonly Transform Root;
         internal readonly Dictionary<Transform, Transform> Bones = new Dictionary<Transform, Transform>();
         private readonly Transform source;
+        private Transform solvedRoot;
+        private readonly Dictionary<Transform, Transform> drivenBones = new Dictionary<Transform, Transform>();
 
         internal VisualRig(Transform source, string name, bool render)
         {
@@ -73,17 +76,44 @@ namespace BetterCalibrationUI
             return bone != null && bone.mesh ? Map(bone.mesh) : null;
         }
 
-        internal void CopyPoseFrom(IReadOnlyDictionary<Transform, Transform> other)
+        internal void ApplyWorldPose(IReadOnlyDictionary<Transform, Transform> other, Transform trackingRoot, Matrix4x4 frame, Quaternion frameRotation)
         {
-            // Include intermediate transforms before copying, even if no renderer referenced them.
-            foreach (Transform original in other.Keys) Map(original);
-            foreach (var pair in Bones)
+            if (!solvedRoot)
             {
-                if (pair.Key == source || !other.TryGetValue(pair.Key, out var pose)) continue;
-                pair.Value.localPosition = pose.localPosition;
-                pair.Value.localRotation = pose.localRotation;
-                pair.Value.localScale = pose.localScale;
+                solvedRoot = new GameObject("BCUI Render Skeleton").transform;
+                solvedRoot.SetParent(Root, false);
+                foreach (var pair in other) drivenBones.Add(pair.Value, Map(pair.Key));
+                var poses = drivenBones.Keys.ToList();
+                int[] parents = BoneTopology.Parents(poses, pose => pose.parent, trackingRoot);
+                // Detach first so a cached ragdoll parent can never introduce a reparenting cycle.
+                foreach (Transform target in drivenBones.Values) target.SetParent(solvedRoot, true);
+                for (int i = 0; i < poses.Count; i++)
+                {
+                    Transform parent = parents[i] == -1 ? solvedRoot : drivenBones[poses[parents[i]]];
+                    drivenBones[poses[i]].SetParent(parent, false);
+                }
+                Debug.Log("[BetterCalibrationUI] Render skeleton rebound to " + drivenBones.Count + " continuous animation bones.");
             }
+            solvedRoot.localPosition = frame.MultiplyPoint3x4(trackingRoot.position);
+            solvedRoot.localRotation = Quaternion.Inverse(frameRotation) * trackingRoot.rotation;
+            foreach (var pair in drivenBones)
+            {
+                pair.Value.localPosition = pair.Key.localPosition;
+                pair.Value.localRotation = pair.Key.localRotation;
+                pair.Value.localScale = pair.Key.localScale;
+            }
+        }
+
+        internal void TraceTransfer(IReadOnlyDictionary<Transform, Transform> pose, Matrix4x4 frame, string stage)
+        {
+            float maximum = 0f;
+            foreach (var pair in pose)
+            {
+                Vector3 expected = frame.MultiplyPoint3x4(pair.Value.position);
+                Vector3 actual = Root.InverseTransformPoint(Bones[pair.Key].position);
+                maximum = Mathf.Max(maximum, Vector3.Distance(expected, actual));
+            }
+            Debug.Log("[BetterCalibrationUI] Render transfer " + stage + ": max frame-space bone error=" + maximum.ToString("F6") + ".");
         }
 
         internal void Destroy() { if (Root) Object.Destroy(Root.gameObject); }

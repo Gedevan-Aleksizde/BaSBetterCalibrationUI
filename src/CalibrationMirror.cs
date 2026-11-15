@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using FbtMore;
 using ThunderRoad;
 using UnityEngine;
 
@@ -10,39 +9,43 @@ namespace BetterCalibrationUI
     [DefaultExecutionOrder(10000)]
     public sealed class CalibrationMirror : MonoBehaviour
     {
-        private static readonly FieldInfo Calibrating = typeof(TrackersPage).GetField("isCalibrating", BindingFlags.Instance | BindingFlags.NonPublic);
         private static readonly FieldInfo Markers = typeof(TrackersPage).GetField("trackerMarkers", BindingFlags.Instance | BindingFlags.NonPublic);
         private readonly PreviewPhase phase = new PreviewPhase();
         private readonly Dictionary<InputBase.Tracker, VisualRig> markerCopies = new Dictionary<InputBase.Tracker, VisualRig>();
-        private readonly BodyTargets bodyTargets = new BodyTargets();
+        private NativeCalibration native;
+        private bool calibrating, gripReleased;
+        private Vector3 displayOffset;
         private TrackersPage page;
         private Creature source;
         private Player player;
         private VisualRig display;
-        private TrackingSession tracking;
+        private PreviewTracking tracking;
         private SkeletonOverlay bones;
         private Transform displayPivot;
         private PlayerControl.Hand stick;
         private bool inputDetached;
         private bool failed;
 
-        private void Awake() => page = GetComponent<TrackersPage>();
+        private void Awake() { page = GetComponent<TrackersPage>(); native = new NativeCalibration(page); }
 
         private void OnEnable()
         {
             phase.Reset();
             failed = false;
+            Debug.Log("[BetterCalibrationUI] Tracker page active; binding calibration controls (3.2.2).");
             if (page && page.calibrateButton)
             {
                 page.calibrateButton.onPointerClick.RemoveListener(CalibrationClicked);
                 page.calibrateButton.onPointerClick.AddListener(CalibrationClicked);
+                page.clearCalibrationButton.onPointerClick.AddListener(ResetClicked);
             }
         }
 
         private void CalibrationClicked()
         {
             failed = false;
-            try { phase.Update(true); CreatePreview(); }
+            Debug.Log("[BetterCalibrationUI] Calibration button received.");
+            try { native.Begin(); calibrating = true; gripReleased = false; phase.Update(true); CreatePreview(); }
             catch (Exception error) { Fail("Preview creation failed", error); }
         }
 
@@ -51,21 +54,22 @@ namespace BetterCalibrationUI
             if (failed || !page || !page.characterSelection || !Player.local) return;
             try
             {
-                bool calibrating = page.textTrackerCalibration && page.textTrackerCalibration.enabled && (bool)Calibrating.GetValue(page);
+                if (calibrating)
+                {
+                    bool grip = PlayerControl.handLeft.gripPressed || PlayerControl.handRight.gripPressed;
+                    if (!grip) gripReleased = true;
+                    if (grip && gripReleased) { native.Confirm(); calibrating = false; }
+                }
                 bool wasTracking = phase.Tracking;
                 if (phase.Update(calibrating)) CreatePreview();
                 if (display == null) return;
                 if (!source || source != page.characterSelection.GetCharacterCreature()) { Clear(); phase.Reset(); return; }
                 if (phase.Tracking)
                 {
-                    ReadBodyTargets(false);
-                    if (!wasTracking)
-                    {
-                        tracking.BeginTracking(bodyTargets);
-                        Debug.Log("[BetterCalibrationUI] Tracker assignment complete; FBT More tracking and left-stick rotation enabled.");
-                    }
-                    else tracking.UpdateTracking(bodyTargets);
+                    tracking.Update(native.AssignedTargets());
+                    if (!wasTracking) { tracking.TracePose("first tracking solve"); Debug.Log("[BetterCalibrationUI] Safe assignment confirmed; independent animation-skeleton preview tracking enabled."); }
                     CopyPose();
+                    if (!wasTracking) display.TraceTransfer(tracking.Bones, tracking.WorldToLocalFrame, "first tracking solve");
                     float axis = stick != null ? stick.JoystickAxis.x : 0f;
                     if (Mathf.Abs(axis) > 0.65f)
                         displayPivot.Rotate(0f, axis * page.characterSelection.characterRotationSpeed * Time.unscaledDeltaTime, 0f, Space.World);
@@ -79,6 +83,8 @@ namespace BetterCalibrationUI
         private void Fail(string message, Exception error)
         {
             Debug.LogError("[BetterCalibrationUI] " + message + ": " + error);
+            if (calibrating) native.Finish();
+            calibrating = false;
             Clear();
             phase.Reset();
             failed = true;
@@ -92,9 +98,9 @@ namespace BetterCalibrationUI
             if (!source || !page.rootMarker || !page.trackerModel || !page.characterSelection.playerStart)
                 throw new InvalidOperationException("Calibration preview references are missing.");
             display = new VisualRig(source.transform, "BCUI Mirror Avatar", true);
-            tracking = TrackingRuntime.CreateSession(source, player, page.rootMarker);
-            ReadBodyTargets(true);
-            tracking.SetCalibrationPose(bodyTargets);
+            tracking = new PreviewTracking(source, player, page.rootMarker);
+            tracking.Calibrate(native.ReferenceTargets());
+            tracking.TracePose("calibration reference");
             Transform menuStart = page.characterSelection.playerStart;
             Vector3 forward = PreviewGeometry.HorizontalForward(menuStart.forward);
             Vector3 position = PreviewGeometry.MenuPosition(menuStart.position, menuStart.forward, source.GetHeight());
@@ -105,7 +111,9 @@ namespace BetterCalibrationUI
             display.Root.SetParent(displayPivot, false);
             CopyPose();
             Transform hips = display.HumanBone(source, HumanBodyBones.Hips);
-            displayPivot.position += Vector3.ProjectOnPlane(position - hips.position, Vector3.up);
+            displayOffset = PreviewGeometry.CenterOffset(display.Root.InverseTransformPoint(hips.position));
+            CopyPose();
+            display.TraceTransfer(tracking.Bones, tracking.WorldToLocalFrame, "calibration reference");
             bones = new SkeletonOverlay(display, source);
             bones.Update();
             stick = PlayerControl.handLeft;
@@ -115,31 +123,14 @@ namespace BetterCalibrationUI
                 inputDetached = true;
             }
             UpdateMarkers();
-            Debug.Log("[BetterCalibrationUI] Mirror calibration preview created using FBT More.");
+            Debug.Log("[BetterCalibrationUI] Mirror preview created with a continuous animation skeleton; native Animator unchanged.");
         }
-
-        private void ReadBodyTargets(bool calibration)
-        {
-            bool female = source.data.gender == CreatureData.Gender.Female;
-            Transform leftFoot = female ? page.leftFootFemaleMarker : page.leftFootMaleMarker;
-            Transform rightFoot = female ? page.rightFootFemaleMarker : page.rightFootMaleMarker;
-            bodyTargets.Pelvis = calibration ? page.waistMarker : Assigned(page.waistMarker);
-            bodyTargets.LeftFoot = calibration ? leftFoot : Assigned(leftFoot);
-            bodyTargets.RightFoot = calibration ? rightFoot : Assigned(rightFoot);
-            bodyTargets.LeftKnee = calibration ? null : Assigned(page.leftKneeMarker);
-            bodyTargets.RightKnee = calibration ? null : Assigned(page.rightKneeMarker);
-            bodyTargets.LeftElbow = calibration ? null : Assigned(page.leftElbowMarker);
-            bodyTargets.RightElbow = calibration ? null : Assigned(page.rightElbowMarker);
-        }
-
-        private Transform Assigned(Transform marker) => marker && marker.gameObject.activeInHierarchy && marker.parent != page.rootMarker ? marker : null;
 
         private void CopyPose()
         {
             if (display == null || tracking == null) return;
-            display.CopyPoseFrom(tracking.BoneMappings);
-            display.Root.localPosition = tracking.WorldToLocalFrame.MultiplyPoint3x4(tracking.Root.position);
-            display.Root.localRotation = Quaternion.Inverse(tracking.FrameRotation) * tracking.Root.rotation;
+            display.Root.localPosition = displayOffset;
+            display.ApplyWorldPose(tracking.Bones, tracking.Root, tracking.WorldToLocalFrame, tracking.FrameRotation);
         }
 
         private void UpdateMarkers()
@@ -149,6 +140,7 @@ namespace BetterCalibrationUI
             if (markers == null) return;
             foreach (var marker in markers)
             {
+                if (!NativeCalibration.IsBodyDevice(marker.inputTracker)) continue;
                 if (!PlayerControl.input.GetTrackerPositionAndRotation(marker.inputTracker, out var pos, out var rot)) continue;
                 if (!markerCopies.TryGetValue(marker.inputTracker, out var copy))
                 {
@@ -159,8 +151,8 @@ namespace BetterCalibrationUI
                     copy.Root.localScale = new Vector3(model.x / scale.x, model.y / scale.y, model.z / scale.z);
                     markerCopies.Add(marker.inputTracker, copy);
                 }
-                copy.Root.localPosition = tracking.Root.InverseTransformPoint(player.transform.TransformPoint(pos));
-                copy.Root.localRotation = Quaternion.Inverse(tracking.Root.rotation) * player.transform.rotation * rot;
+                copy.Root.localPosition = tracking.WorldToLocalFrame.MultiplyPoint3x4(player.transform.TransformPoint(pos));
+                copy.Root.localRotation = Quaternion.Inverse(tracking.FrameRotation) * player.transform.rotation * rot;
                 copy.Root.gameObject.SetActive(true);
             }
         }
@@ -186,13 +178,24 @@ namespace BetterCalibrationUI
             stick = null;
             source = null;
             player = null;
-            bodyTargets.Pelvis = bodyTargets.LeftFoot = bodyTargets.RightFoot = null;
-            bodyTargets.LeftKnee = bodyTargets.RightKnee = bodyTargets.LeftElbow = bodyTargets.RightElbow = null;
+            displayOffset = Vector3.zero;
+        }
+
+        private void ResetClicked()
+        {
+            calibrating = false;
+            PlayerControl.input.trackers = new InputBase.Tracker[7];
+            native.FilterDevices();
+            Clear();
+            phase.Reset();
         }
 
         private void OnDisable()
         {
             if (page && page.calibrateButton) page.calibrateButton.onPointerClick.RemoveListener(CalibrationClicked);
+            if (page && page.clearCalibrationButton) page.clearCalibrationButton.onPointerClick.RemoveListener(ResetClicked);
+            if (calibrating && page) native.Finish();
+            calibrating = false;
             Clear();
             phase.Reset();
         }

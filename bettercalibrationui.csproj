@@ -627,14 +627,17 @@
     <Compile Include="src\SkeletonOverlay.cs" />
     <Compile Include="src\PreviewPhase.cs" />
     <Compile Include="src\PreviewGeometry.cs" />
+    <Compile Include="src\PreviewTracking.cs" />
+    <Compile Include="src\NativeCalibration.cs" />
+    <Compile Include="src\TrackerPolicy.cs" />
+    <Compile Include="src\BoneTopology.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="fbt-more\fbt-more.csproj">
-      <Project>{27269F64-90DA-4F79-AAC4-325E33AB6480}</Project>
-      <Name>FbtMore</Name>
+    <Reference Include="RootMotion">
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Blade &amp; Sorcery\BladeAndSorcery_Data\Managed\RootMotion.dll</HintPath>
       <Private>False</Private>
-    </ProjectReference>
+    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

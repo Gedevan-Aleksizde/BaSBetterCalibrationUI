@@ -17,5 +17,17 @@ namespace BetterCalibrationUI
             return length < 0.0001f ? Vector3.forward : new Vector3(gaze.x / length, 0f, gaze.z / length);
         }
 
+        internal static Vector3 CenterOffset(Vector3 hipsInFrame) => new Vector3(-hipsInFrame.x, 0f, -hipsInFrame.z);
+
+        internal static Vector3 ReferenceSegment(Vector3 referenceDirection, float length)
+        {
+            return referenceDirection.sqrMagnitude > .000001f ? referenceDirection.normalized * length : referenceDirection;
+        }
+
+        internal static Vector3 PosePoint(Matrix4x4 physicalWorldToLocal, Matrix4x4 displayLocalToWorld, Vector3 physicalPoint)
+        {
+            return displayLocalToWorld.MultiplyPoint3x4(physicalWorldToLocal.MultiplyPoint3x4(physicalPoint));
+        }
+
     }
 }

@@ -12,6 +12,7 @@ namespace BetterCalibrationUI
         public override void ScriptEnable()
         {
             base.ScriptEnable();
+            Debug.Log("[BetterCalibrationUI] Enabled 3.2.2.");
             EventManager.onLevelLoad += LevelLoaded;
             Attach();
         }
@@ -23,11 +24,12 @@ namespace BetterCalibrationUI
             base.ScriptDisable();
         }
         private void LevelLoaded(LevelData data, LevelData.Mode mode, EventTime time)
-        { if (time == EventTime.OnEnd && data.id == "MainMenu") Attach(); }
+        { if (time == EventTime.OnEnd && string.Equals(data.id, "MainMenu", System.StringComparison.OrdinalIgnoreCase)) Attach(); }
         private static void Attach()
         {
             foreach (TrackersPage page in Resources.FindObjectsOfTypeAll<TrackersPage>())
-                if (page.gameObject.scene.IsValid() && !page.GetComponent<CalibrationMirror>()) page.gameObject.AddComponent<CalibrationMirror>();
+                if (page.gameObject.scene.IsValid() && !page.GetComponent<CalibrationMirror>())
+                { page.gameObject.AddComponent<CalibrationMirror>(); Debug.Log("[BetterCalibrationUI] Attached preview controller to tracker page."); }
         }
     }
 }
