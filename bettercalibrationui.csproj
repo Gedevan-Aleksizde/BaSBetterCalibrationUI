@@ -624,13 +624,18 @@
     <Compile Include="src\adjuster.cs" />
     <Compile Include="src\CalibrationMirror.cs" />
     <Compile Include="src\VisualRig.cs" />
+    <Compile Include="src\EquipmentVisualFilter.cs" />
+    <Compile Include="src\CalibrationHelpLayout.cs" />
     <Compile Include="src\SkeletonOverlay.cs" />
     <Compile Include="src\PreviewPhase.cs" />
     <Compile Include="src\PreviewGeometry.cs" />
     <Compile Include="src\PreviewTracking.cs" />
     <Compile Include="src\NativeCalibration.cs" />
     <Compile Include="src\TrackerPolicy.cs" />
+    <Compile Include="src\TrackerCounter.cs" />
+    <Compile Include="src\TrackerInventory.cs" />
     <Compile Include="src\BoneTopology.cs" />
+    <Compile Include="src\RotationHint.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -152,7 +152,9 @@ namespace BetterCalibrationUI
                 if (marker != null && !string.IsNullOrEmpty(marker.inputTracker.identifier)) assigned.Add(marker.inputTracker.identifier);
             }
             string format = LocalizationManager.Instance.GetLocalizedString("BetterCalibrationUIStatus", "TrackersSummary");
-            page.textTrackerState.text = string.Format(format, connected, assigned.Count);
+            // Native status uses rich-text colors; keep connected trackers green even without native body assignments.
+            string color = connected > 0 ? "green" : "red";
+            page.textTrackerState.text = "<color=\"" + color + "\">" + string.Format(format, connected, assigned.Count) + "</color>";
             if (connected != lastConnected || assigned.Count != lastAssigned)
             {
                 Debug.Log("[BetterCalibrationUI] Tracker totals: connected=" + connected + "; assigned in BaS=" + assigned.Count + ".");
