@@ -77,6 +77,16 @@
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "ShowBones_desc",
           "text": "Superpose les os principaux sur l’avatar miroir. Par défaut : activé."
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "VRChatInterface",
+          "text": "Interface façon VRChat"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "VRChatInterface_desc",
+          "text": "Affiche un avatar miroir et la position des trackers pendant le calibrage. Par défaut : activé."
         }
       ]
     },

@@ -77,6 +77,16 @@
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "ShowBones_desc",
           "text": "在镜像化身上叠加显示主要骨骼。默认：启用。"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "VRChatInterface",
+          "text": "VRChat风格界面"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "VRChatInterface_desc",
+          "text": "校准时显示镜像化身和追踪器位置。默认：启用。"
         }
       ]
     },

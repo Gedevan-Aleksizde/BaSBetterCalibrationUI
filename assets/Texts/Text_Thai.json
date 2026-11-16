@@ -77,6 +77,16 @@
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "ShowBones_desc",
           "text": "แสดงโครงกระดูกหลักซ้อนบนอวาตาร์กระจก ค่าเริ่มต้น: เปิดใช้งาน"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "VRChatInterface",
+          "text": "อินเทอร์เฟซแบบ VRChat"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "VRChatInterface_desc",
+          "text": "แสดงอวาตาร์กระจกและตำแหน่งแทร็กเกอร์ระหว่างการปรับเทียบ ค่าเริ่มต้น: เปิดใช้งาน"
         }
       ]
     },

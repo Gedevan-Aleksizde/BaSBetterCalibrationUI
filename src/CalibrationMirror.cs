@@ -32,17 +32,19 @@ namespace BetterCalibrationUI
         {
             phase.Reset();
             failed = false;
-            Debug.Log("[BetterCalibrationUI] Tracker page active; binding calibration controls (3.2.2).");
+            Debug.Log("[BetterCalibrationUI] Tracker page active; binding calibration controls (" + GetType().Assembly.GetName().Version + ").");
             if (page && page.calibrateButton)
             {
                 page.calibrateButton.onPointerClick.RemoveListener(CalibrationClicked);
                 page.calibrateButton.onPointerClick.AddListener(CalibrationClicked);
                 page.clearCalibrationButton.onPointerClick.AddListener(ResetClicked);
             }
+            if (native.IsCalibrating) CalibrationClicked();
         }
 
         private void CalibrationClicked()
         {
+            if (!BCUIChanger.VRChatInterface) return;
             failed = false;
             Debug.Log("[BetterCalibrationUI] Calibration button received.");
             try { native.Begin(); calibrating = true; gripReleased = false; phase.Update(true); CreatePreview(); }
@@ -169,7 +171,7 @@ namespace BetterCalibrationUI
             tracking = null;
             if (displayPivot) Destroy(displayPivot.gameObject);
             displayPivot = null;
-            if (inputDetached && stick != null && page && page.characterSelection && page.characterSelection.isActiveAndEnabled)
+            if (inputDetached && stick != null && page && page.characterSelection && page.characterSelection.isActiveAndEnabled && page.characterSelection.IsCharacterVisible)
             {
                 stick.OnJoystickMoveEvent -= page.characterSelection.MoveCreature;
                 stick.OnJoystickMoveEvent += page.characterSelection.MoveCreature;
@@ -194,7 +196,12 @@ namespace BetterCalibrationUI
         {
             if (page && page.calibrateButton) page.calibrateButton.onPointerClick.RemoveListener(CalibrationClicked);
             if (page && page.clearCalibrationButton) page.clearCalibrationButton.onPointerClick.RemoveListener(ResetClicked);
-            if (calibrating && page) native.Finish();
+            if (calibrating && page)
+            {
+                if (BCUIChanger.IsRunning && !BCUIChanger.VRChatInterface && page.isActiveAndEnabled)
+                    native.BeginVanilla();
+                else native.Finish();
+            }
             calibrating = false;
             Clear();
             phase.Reset();

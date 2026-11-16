@@ -5,6 +5,23 @@ namespace BetterCalibrationUI
 {
     public class BCUIChanger : ThunderScript
     {
+        private static bool vrChatInterface = true;
+        internal static bool IsRunning { get; private set; }
+
+        [ModOptionCategory("General", 0, "BetterCalibrationUIOptCat.General")]
+        [ModOption("VRChat-style Interface", "BetterCalibrationUIOpt.VRChatInterface", defaultValueIndex=1, interactionType=ModOption.InteractionType.ButtonList)]
+        [ModOptionTooltip("A", "BetterCalibrationUIOpt.VRChatInterface_desc")]
+        public static bool VRChatInterface
+        {
+            get => vrChatInterface;
+            set
+            {
+                if (vrChatInterface == value) return;
+                vrChatInterface = value;
+                if (IsRunning) Attach();
+            }
+        }
+
         [ModOptionCategory("General", 0, "BetterCalibrationUIOptCat.General")]
         [ModOption("Show Bones", "BetterCalibrationUIOpt.ShowBones", defaultValueIndex=1, interactionType=ModOption.InteractionType.ButtonList)]
         [ModOptionTooltip("A", "BetterCalibrationUIOpt.ShowBones_desc")]
@@ -12,12 +29,14 @@ namespace BetterCalibrationUI
         public override void ScriptEnable()
         {
             base.ScriptEnable();
-            Debug.Log("[BetterCalibrationUI] Enabled 3.2.2.");
+            IsRunning = true;
+            Debug.Log("[BetterCalibrationUI] Enabled 3.3.0.");
             EventManager.onLevelLoad += LevelLoaded;
             Attach();
         }
         public override void ScriptDisable()
         {
+            IsRunning = false;
             EventManager.onLevelLoad -= LevelLoaded;
             foreach (CalibrationMirror mirror in Resources.FindObjectsOfTypeAll<CalibrationMirror>())
             { mirror.enabled = false; Object.Destroy(mirror); }
@@ -28,8 +47,21 @@ namespace BetterCalibrationUI
         private static void Attach()
         {
             foreach (TrackersPage page in Resources.FindObjectsOfTypeAll<TrackersPage>())
-                if (page.gameObject.scene.IsValid() && !page.GetComponent<CalibrationMirror>())
-                { page.gameObject.AddComponent<CalibrationMirror>(); Debug.Log("[BetterCalibrationUI] Attached preview controller to tracker page."); }
+            {
+                if (!page.gameObject.scene.IsValid()) continue;
+                CalibrationMirror mirror = page.GetComponent<CalibrationMirror>();
+                if (!VRChatInterface)
+                {
+                    if (mirror) mirror.enabled = false;
+                    continue;
+                }
+                if (!mirror)
+                {
+                    page.gameObject.AddComponent<CalibrationMirror>();
+                    Debug.Log("[BetterCalibrationUI] Attached preview controller to tracker page.");
+                }
+                else mirror.enabled = true;
+            }
         }
     }
 }

@@ -77,6 +77,16 @@
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "ShowBones_desc",
           "text": "Superpone los huesos principales al avatar reflejado. Por defecto: activado."
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "VRChatInterface",
+          "text": "Interfaz estilo VRChat"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "VRChatInterface_desc",
+          "text": "Muestra un avatar reflejado y las posiciones de los rastreadores durante la calibración. Por defecto: activado."
         }
       ]
     },

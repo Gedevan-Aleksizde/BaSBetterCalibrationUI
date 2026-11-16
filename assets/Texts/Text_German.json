@@ -77,6 +77,16 @@
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "ShowBones_desc",
           "text": "Zeigt die Hauptknochen über dem Spiegelavatar an. Standard: aktiviert."
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "VRChatInterface",
+          "text": "Oberfläche im VRChat-Stil"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "VRChatInterface_desc",
+          "text": "Zeigt beim Kalibrieren einen gespiegelten Avatar und die Trackerpositionen. Standard: aktiviert."
         }
       ]
     },

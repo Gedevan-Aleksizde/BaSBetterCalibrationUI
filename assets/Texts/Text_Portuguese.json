@@ -77,6 +77,16 @@
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "ShowBones_desc",
           "text": "Sobrepõe os ossos principais ao avatar espelhado. Padrão: ativado."
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "VRChatInterface",
+          "text": "Interface estilo VRChat"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "VRChatInterface_desc",
+          "text": "Mostra um avatar espelhado e as posições dos rastreadores durante a calibração. Padrão: ativado."
         }
       ]
     },

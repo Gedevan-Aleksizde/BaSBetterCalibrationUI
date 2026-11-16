@@ -20,6 +20,8 @@ namespace BetterCalibrationUI
         private readonly Dictionary<string, TrackerRole> roles = new Dictionary<string, TrackerRole>();
 
         internal NativeCalibration(TrackersPage page) { this.page = page; }
+        internal bool IsCalibrating => (bool)Calibrating.GetValue(page);
+        internal void BeginVanilla() => page.StartCalibration();
         private static FieldInfo Field(string name) => typeof(TrackersPage).GetField(name, BindingFlags.Instance | BindingFlags.NonPublic);
         internal List<TrackersPage.TrackerMarker> Markers => (List<TrackersPage.TrackerMarker>)MarkerList.GetValue(page);
 

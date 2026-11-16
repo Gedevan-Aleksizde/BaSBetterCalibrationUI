@@ -77,6 +77,16 @@
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "ShowBones_desc",
           "text": "Sovrappone le ossa principali all’avatar speculare. Predefinito: attivo."
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "VRChatInterface",
+          "text": "Interfaccia stile VRChat"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "VRChatInterface_desc",
+          "text": "Mostra un avatar speculare e le posizioni dei tracker durante la calibrazione. Predefinito: attivo."
         }
       ]
     },

@@ -87,6 +87,16 @@
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "ShowBones_desc",
           "text": "コピーの主要な骨格を重ねて表示します。デフォルトは「有効」です。"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "VRChatInterface",
+          "text": "VRChat風のインターフェース"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "VRChatInterface_desc",
+          "text": "VRChatのカリブレーションのように、眼の前にアバターを表示します。デフォルトは「有効」です。"
         }
       ]
     },

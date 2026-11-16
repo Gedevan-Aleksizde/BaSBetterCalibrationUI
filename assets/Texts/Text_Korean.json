@@ -77,6 +77,16 @@
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "ShowBones_desc",
           "text": "거울 아바타 위에 주요 뼈대를 표시합니다. 기본값: 활성화."
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "VRChatInterface",
+          "text": "VRChat 스타일 인터페이스"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "VRChatInterface_desc",
+          "text": "보정 중에 거울 아바타와 트래커 위치를 표시합니다. 기본값: 활성화."
         }
       ]
     },
