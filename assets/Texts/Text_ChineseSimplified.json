@@ -111,6 +111,19 @@
           "text": "已连接追踪器数量 {0}\n其中官方支持 {1}"
         }
       ]
+    },
+    {
+      "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
+      "id": "BetterCalibrationUIHelp",
+      "texts": [
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "CalibrationInstructions",
+          "text": "将追踪器的位置与面前的化身对齐，然后按下双手控制器的扳机按钮。\n之后可以旋转化身，检查对齐情况。",
+          "spriteAddress": "",
+          "videoAddress": ""
+        }
+      ]
     }
   ]
 }

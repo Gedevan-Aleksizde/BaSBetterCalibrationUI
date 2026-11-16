@@ -22,6 +22,7 @@ namespace BetterCalibrationUI
         private PreviewTracking tracking;
         private SkeletonOverlay bones;
         private RotationHint rotationHint;
+        private CalibrationHelpLayout helpLayout;
         private Transform displayPivot;
         private PlayerControl.Hand stick;
         private bool inputDetached;
@@ -31,6 +32,7 @@ namespace BetterCalibrationUI
 
         private void OnEnable()
         {
+            helpLayout = new CalibrationHelpLayout(page.textTrackerCalibration);
             phase.Reset();
             failed = false;
             Debug.Log("[BetterCalibrationUI] Tracker page active; binding calibration controls (" + GetType().Assembly.GetName().Version + ").");
@@ -203,6 +205,8 @@ namespace BetterCalibrationUI
 
         private void OnDisable()
         {
+            helpLayout?.Dispose();
+            helpLayout = null;
             if (page && page.calibrateButton) page.calibrateButton.onPointerClick.RemoveListener(CalibrationClicked);
             if (page && page.clearCalibrationButton) page.clearCalibrationButton.onPointerClick.RemoveListener(ResetClicked);
             if (calibrating && page)

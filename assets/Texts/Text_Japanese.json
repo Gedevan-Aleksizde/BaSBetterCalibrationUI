@@ -121,6 +121,19 @@
           "text": "接続されたトラッカー数 {0}\nうち公式サポート数 {1}"
         }
       ]
+    },
+    {
+      "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
+      "id": "BetterCalibrationUIHelp",
+      "texts": [
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "CalibrationInstructions",
+          "text": "目の前のアバターにトラッカーの位置を合わせてから、両手のトリガーボタンを押してください。\nその後、アバターを回転させてカリブレーションの状態を確認できます。",
+          "spriteAddress": null,
+          "videoAddress": null
+        }
+      ]
     }
   ]
 }

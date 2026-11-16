@@ -111,6 +111,19 @@
           "text": "จำนวนแทร็กเกอร์ที่เชื่อมต่อ {0}\nในจำนวนนี้รองรับอย่างเป็นทางการ {1}"
         }
       ]
+    },
+    {
+      "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
+      "id": "BetterCalibrationUIHelp",
+      "texts": [
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "CalibrationInstructions",
+          "text": "จัดตำแหน่งตัวติดตามให้ตรงกับอวตารที่อยู่ตรงหน้า แล้วกดปุ่มทริกเกอร์บนคอนโทรลเลอร์ทั้งสองข้าง\nจากนั้นคุณสามารถหมุนอวตารเพื่อตรวจสอบตำแหน่งได้",
+          "spriteAddress": null,
+          "videoAddress": null
+        }
+      ]
     }
   ]
 }

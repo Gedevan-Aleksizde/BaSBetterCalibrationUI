@@ -111,6 +111,19 @@
           "text": "Tracker connessi {0}\nDi cui {1} ufficialmente supportati"
         }
       ]
+    },
+    {
+      "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
+      "id": "BetterCalibrationUIHelp",
+      "texts": [
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "CalibrationInstructions",
+          "text": "Allinea i tracker con l’avatar davanti a te, poi premi i grilletti di entrambi i controller.\nPotrai quindi ruotare l’avatar per verificare l’allineamento.",
+          "spriteAddress": null,
+          "videoAddress": null
+        }
+      ]
     }
   ]
 }

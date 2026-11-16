@@ -111,6 +111,19 @@
           "text": "Rastreadores conectados {0}\nDe ellos, {1} con soporte oficial"
         }
       ]
+    },
+    {
+      "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
+      "id": "BetterCalibrationUIHelp",
+      "texts": [
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "CalibrationInstructions",
+          "text": "Alinea los rastreadores con el avatar que tienes delante y pulsa los gatillos de ambos mandos.\nDespués podrás girar el avatar para comprobar la alineación.",
+          "spriteAddress": null,
+          "videoAddress": null
+        }
+      ]
     }
   ]
 }

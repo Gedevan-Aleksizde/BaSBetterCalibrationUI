@@ -111,6 +111,19 @@
           "text": "연결된 트래커 수 {0}\n그중 공식 지원 {1}"
         }
       ]
+    },
+    {
+      "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
+      "id": "BetterCalibrationUIHelp",
+      "texts": [
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "CalibrationInstructions",
+          "text": "앞에 있는 아바타에 트래커의 위치를 맞춘 다음, 양손 컨트롤러의 트리거 버튼을 누르세요.\n이후 아바타를 회전시켜 정렬 상태를 확인할 수 있습니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        }
+      ]
     }
   ]
 }

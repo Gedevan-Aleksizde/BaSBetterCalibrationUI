@@ -111,6 +111,19 @@
           "text": "Trackers connectés {0}\nDont {1} officiellement pris en charge"
         }
       ]
+    },
+    {
+      "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
+      "id": "BetterCalibrationUIHelp",
+      "texts": [
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "CalibrationInstructions",
+          "text": "Alignez vos trackers sur l’avatar devant vous, puis appuyez sur les gâchettes des deux contrôleurs.\nVous pourrez ensuite faire pivoter l’avatar pour vérifier l’alignement.",
+          "spriteAddress": "",
+          "videoAddress": ""
+        }
+      ]
     }
   ]
 }

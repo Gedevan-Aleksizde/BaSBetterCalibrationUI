@@ -111,6 +111,19 @@
           "text": "已連接追蹤器數量 {0}\n其中官方支援 {1}"
         }
       ]
+    },
+    {
+      "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
+      "id": "BetterCalibrationUIHelp",
+      "texts": [
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "CalibrationInstructions",
+          "text": "將追蹤器的位置與面前的化身對齊，然後按下雙手控制器的扳機按鈕。\n之後可以旋轉化身，檢查對齊情況。",
+          "spriteAddress": "",
+          "videoAddress": ""
+        }
+      ]
     }
   ]
 }

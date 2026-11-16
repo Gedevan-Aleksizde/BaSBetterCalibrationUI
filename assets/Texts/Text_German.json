@@ -111,6 +111,19 @@
           "text": "Verbundene Tracker {0}\nDavon {1} offiziell unterstützt"
         }
       ]
+    },
+    {
+      "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
+      "id": "BetterCalibrationUIHelp",
+      "texts": [
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "CalibrationInstructions",
+          "text": "Richte deine Tracker am Avatar vor dir aus und drücke dann die Trigger-Tasten beider Controller.\nAnschließend kannst du den Avatar drehen, um die Ausrichtung zu überprüfen.",
+          "spriteAddress": "",
+          "videoAddress": ""
+        }
+      ]
     }
   ]
 }

@@ -111,6 +111,19 @@
           "text": "Connected trackers {0}\nOf these, {1} officially supported"
         }
       ]
+    },
+    {
+      "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
+      "id": "BetterCalibrationUIHelp",
+      "texts": [
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "CalibrationInstructions",
+          "text": "Align your trackers with the avatar in front of you, then press the trigger buttons on both controllers.\nYou can then rotate the avatar to check the alignment.",
+          "spriteAddress": "",
+          "videoAddress": ""
+        }
+      ]
     }
   ]
 }
