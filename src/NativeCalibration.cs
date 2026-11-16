@@ -18,6 +18,8 @@ namespace BetterCalibrationUI
         private static readonly string[] Names = { "waistTrackerMarker", "leftFootTrackerMarker", "rightFootTrackerMarker", "leftKneeTrackerMarker", "rightKneeTrackerMarker", "leftElbowTrackerMarker", "rightElbowTrackerMarker" };
         private readonly TrackersPage page;
         private readonly Dictionary<string, TrackerRole> roles = new Dictionary<string, TrackerRole>();
+        private float nextStatusRefresh;
+        private int lastConnected = -1, lastAssigned = -1;
 
         internal NativeCalibration(TrackersPage page) { this.page = page; }
         internal bool IsCalibrating => (bool)Calibrating.GetValue(page);
@@ -54,6 +56,7 @@ namespace BetterCalibrationUI
             foreach (string name in Names) Field(name).SetValue(page, null);
             FilterDevices();
             ReadRoles();
+            RefreshTrackerStatus(true);
         }
 
         private void ReadRoles()
@@ -121,6 +124,7 @@ namespace BetterCalibrationUI
             page.RefreshTrackerList();
             page.RefreshTrackerState();
             page.EnableClearCalibration(true);
+            RefreshTrackerStatus(true);
             Debug.Log("[BetterCalibrationUI] Confirmed explicit SteamVR body roles; wrists/unknown devices are not assigned to waist or legs.");
         }
 
@@ -134,6 +138,27 @@ namespace BetterCalibrationUI
                     targets[slot] = null;
             }
             return targets;
+        }
+
+        internal void RefreshTrackerStatus(bool force = false)
+        {
+            if (!page.textTrackerState || (!force && Time.unscaledTime < nextStatusRefresh)) return;
+            nextStatusRefresh = Time.unscaledTime + .5f;
+            int connected = TrackerInventory.ConnectedCount();
+            var assigned = new HashSet<string>(StringComparer.Ordinal);
+            foreach (string name in Names)
+            {
+                var marker = Field(name).GetValue(page) as TrackersPage.TrackerMarker;
+                if (marker != null && !string.IsNullOrEmpty(marker.inputTracker.identifier)) assigned.Add(marker.inputTracker.identifier);
+            }
+            string format = LocalizationManager.Instance.GetLocalizedString("BetterCalibrationUIStatus", "TrackersSummary");
+            page.textTrackerState.text = string.Format(format, connected, assigned.Count);
+            if (connected != lastConnected || assigned.Count != lastAssigned)
+            {
+                Debug.Log("[BetterCalibrationUI] Tracker totals: connected=" + connected + "; assigned in BaS=" + assigned.Count + ".");
+                lastConnected = connected;
+                lastAssigned = assigned.Count;
+            }
         }
 
         internal void Finish()

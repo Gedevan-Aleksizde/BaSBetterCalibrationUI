@@ -21,6 +21,7 @@ namespace BetterCalibrationUI
         private VisualRig display;
         private PreviewTracking tracking;
         private SkeletonOverlay bones;
+        private RotationHint rotationHint;
         private Transform displayPivot;
         private PlayerControl.Hand stick;
         private bool inputDetached;
@@ -40,6 +41,7 @@ namespace BetterCalibrationUI
                 page.clearCalibrationButton.onPointerClick.AddListener(ResetClicked);
             }
             if (native.IsCalibrating) CalibrationClicked();
+            native.RefreshTrackerStatus(true);
         }
 
         private void CalibrationClicked()
@@ -53,9 +55,11 @@ namespace BetterCalibrationUI
 
         private void LateUpdate()
         {
-            if (failed || !page || !page.characterSelection || !Player.local) return;
+            if (!page || !page.characterSelection || !Player.local) return;
             try
             {
+                native.RefreshTrackerStatus();
+                if (failed) return;
                 if (calibrating)
                 {
                     bool grip = PlayerControl.handLeft.gripPressed || PlayerControl.handRight.gripPressed;
@@ -78,6 +82,7 @@ namespace BetterCalibrationUI
                 }
                 UpdateMarkers();
                 bones?.Update();
+                rotationHint?.Update(displayPivot, phase.Tracking && stick != null);
             }
             catch (Exception error) { Fail("Mirror preview failed", error); }
         }
@@ -99,7 +104,7 @@ namespace BetterCalibrationUI
             player = Player.local;
             if (!source || !page.rootMarker || !page.trackerModel || !page.characterSelection.playerStart)
                 throw new InvalidOperationException("Calibration preview references are missing.");
-            display = new VisualRig(source.transform, "BCUI Mirror Avatar", true);
+            display = new VisualRig(source.transform, "BCUI Mirror Avatar", true, excludeEquipment: true);
             tracking = new PreviewTracking(source, player, page.rootMarker);
             tracking.Calibrate(native.ReferenceTargets());
             tracking.TracePose("calibration reference");
@@ -118,6 +123,7 @@ namespace BetterCalibrationUI
             display.TraceTransfer(tracking.Bones, tracking.WorldToLocalFrame, "calibration reference");
             bones = new SkeletonOverlay(display, source);
             bones.Update();
+            rotationHint = RotationHint.Create(page.characterSelection.characterMovementUI);
             stick = PlayerControl.handLeft;
             if (stick != null)
             {
@@ -161,6 +167,8 @@ namespace BetterCalibrationUI
 
         private void Clear()
         {
+            rotationHint?.Dispose();
+            rotationHint = null;
             bones?.Dispose();
             bones = null;
             foreach (VisualRig marker in markerCopies.Values) marker.Destroy();
@@ -188,6 +196,7 @@ namespace BetterCalibrationUI
             calibrating = false;
             PlayerControl.input.trackers = new InputBase.Tracker[7];
             native.FilterDevices();
+            native.RefreshTrackerStatus(true);
             Clear();
             phase.Reset();
         }
@@ -205,6 +214,7 @@ namespace BetterCalibrationUI
             calibrating = false;
             Clear();
             phase.Reset();
+            if (page && page.isActiveAndEnabled) page.RefreshTrackerState();
         }
 
         private void OnDestroy() => Clear();

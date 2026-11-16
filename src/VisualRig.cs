@@ -14,7 +14,7 @@ namespace BetterCalibrationUI
         private Transform solvedRoot;
         private readonly Dictionary<Transform, Transform> drivenBones = new Dictionary<Transform, Transform>();
 
-        internal VisualRig(Transform source, string name, bool render)
+        internal VisualRig(Transform source, string name, bool render, bool excludeEquipment = false)
         {
             this.source = source;
             Root = new GameObject(name).transform;
@@ -23,6 +23,7 @@ namespace BetterCalibrationUI
             var lowerLods = new HashSet<Renderer>();
             foreach (LODGroup group in source.GetComponentsInChildren<LODGroup>(true))
             {
+                if (excludeEquipment && EquipmentVisualFilter.IsExcluded(group.transform, source)) continue;
                 LOD[] lods = group.GetLODs();
                 if (lods.Length == 0) continue;
                 var highest = new HashSet<Renderer>(lods[0].renderers);
@@ -32,6 +33,7 @@ namespace BetterCalibrationUI
             }
             foreach (SkinnedMeshRenderer original in source.GetComponentsInChildren<SkinnedMeshRenderer>(true))
             {
+                if (excludeEquipment && EquipmentVisualFilter.IsExcluded(original.transform, source)) continue;
                 if (!original.sharedMesh || lowerLods.Contains(original)) continue;
                 var copy = Map(original.transform).gameObject.AddComponent<SkinnedMeshRenderer>();
                 copy.sharedMesh = original.sharedMesh;
@@ -47,6 +49,7 @@ namespace BetterCalibrationUI
             }
             foreach (MeshRenderer original in source.GetComponentsInChildren<MeshRenderer>(true))
             {
+                if (excludeEquipment && EquipmentVisualFilter.IsExcluded(original.transform, source)) continue;
                 var filter = original.GetComponent<MeshFilter>();
                 if (!filter || !filter.sharedMesh || lowerLods.Contains(original)) continue;
                 Transform target = Map(original.transform);

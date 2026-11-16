@@ -100,6 +100,17 @@
           "text": "Général"
         }
       ]
+    },
+    {
+      "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
+      "id": "BetterCalibrationUIStatus",
+      "texts": [
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "TrackersSummary",
+          "text": "Trackers connectés {0}\nDont {1} officiellement pris en charge"
+        }
+      ]
     }
   ]
 }

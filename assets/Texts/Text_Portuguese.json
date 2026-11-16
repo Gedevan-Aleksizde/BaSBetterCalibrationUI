@@ -100,6 +100,17 @@
           "text": "Geral"
         }
       ]
+    },
+    {
+      "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
+      "id": "BetterCalibrationUIStatus",
+      "texts": [
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "TrackersSummary",
+          "text": "Rastreadores conectados {0}\nDos quais {1} com suporte oficial"
+        }
+      ]
     }
   ]
 }

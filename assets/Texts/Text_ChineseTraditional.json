@@ -100,6 +100,17 @@
           "text": "一般"
         }
       ]
+    },
+    {
+      "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
+      "id": "BetterCalibrationUIStatus",
+      "texts": [
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "TrackersSummary",
+          "text": "已連接追蹤器數量 {0}\n其中官方支援 {1}"
+        }
+      ]
     }
   ]
 }

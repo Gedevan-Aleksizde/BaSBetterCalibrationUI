@@ -100,6 +100,17 @@
           "text": "Allgemein"
         }
       ]
+    },
+    {
+      "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
+      "id": "BetterCalibrationUIStatus",
+      "texts": [
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "TrackersSummary",
+          "text": "Verbundene Tracker {0}\nDavon {1} offiziell unterstützt"
+        }
+      ]
     }
   ]
 }

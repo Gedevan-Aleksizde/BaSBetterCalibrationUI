@@ -30,7 +30,7 @@ namespace BetterCalibrationUI
         {
             base.ScriptEnable();
             IsRunning = true;
-            Debug.Log("[BetterCalibrationUI] Enabled 3.3.0.");
+            Debug.Log("[BetterCalibrationUI] Enabled " + GetType().Assembly.GetName().Version + ".");
             EventManager.onLevelLoad += LevelLoaded;
             Attach();
         }

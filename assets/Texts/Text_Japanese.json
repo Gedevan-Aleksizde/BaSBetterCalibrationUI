@@ -110,6 +110,17 @@
           "text": "一般"
         }
       ]
+    },
+    {
+      "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
+      "id": "BetterCalibrationUIStatus",
+      "texts": [
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "TrackersSummary",
+          "text": "接続されたトラッカー数 {0}\nうち公式サポート数 {1}"
+        }
+      ]
     }
   ]
 }
